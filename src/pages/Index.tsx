@@ -1,13 +1,11 @@
 import React from 'react';
-import Navigation from '../components/Navigation';
 import Hero from '../components/Hero';
 
 const Index = () => {
   return (
-    <main className="relative">
-      <Navigation />
+    <div className="pt-20">
       <Hero />
-    </main>
+    </div>
   );
 };
 
