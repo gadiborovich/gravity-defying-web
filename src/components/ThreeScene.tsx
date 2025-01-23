@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { TorusKnot } from '@react-three/drei';
 import * as THREE from 'three';
 
 const FloatingObject = ({ position, color, scale, speed = 1 }: any) => {
@@ -18,9 +17,9 @@ const FloatingObject = ({ position, color, scale, speed = 1 }: any) => {
     <mesh ref={meshRef} position={position} scale={scale}>
       <torusKnotGeometry args={[1, 0.3, 128, 16]} />
       <meshStandardMaterial 
-        color={color} 
-        roughness={0.3} 
-        metalness={0.8} 
+        color={color}
+        roughness={0.3}
+        metalness={0.8}
       />
     </mesh>
   );
@@ -28,28 +27,30 @@ const FloatingObject = ({ position, color, scale, speed = 1 }: any) => {
 
 const ThreeScene = () => {
   return (
-    <Canvas className="canvas-container" camera={{ position: [0, 0, 15] }}>
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} intensity={1} />
-      <FloatingObject 
-        position={[-4, 0, 0]} 
-        color="#00F6FF" 
-        scale={0.8} 
-        speed={1.2} 
-      />
-      <FloatingObject 
-        position={[4, 2, -2]} 
-        color="#FF3366" 
-        scale={0.6} 
-        speed={0.8} 
-      />
-      <FloatingObject 
-        position={[0, -2, 1]} 
-        color="#FFFFFF" 
-        scale={0.7} 
-        speed={1} 
-      />
-    </Canvas>
+    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
+      <Canvas camera={{ position: [0, 0, 15] }}>
+        <ambientLight intensity={0.5} />
+        <pointLight position={[10, 10, 10]} intensity={1} />
+        <FloatingObject 
+          position={[-4, 0, 0]} 
+          color="#00F6FF" 
+          scale={0.8} 
+          speed={1.2} 
+        />
+        <FloatingObject 
+          position={[4, 2, -2]} 
+          color="#FF3366" 
+          scale={0.6} 
+          speed={0.8} 
+        />
+        <FloatingObject 
+          position={[0, -2, 1]} 
+          color="#FFFFFF" 
+          scale={0.7} 
+          speed={1} 
+        />
+      </Canvas>
+    </div>
   );
 };
 
