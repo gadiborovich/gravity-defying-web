@@ -1,10 +1,12 @@
 import React from 'react';
 import { Button } from './ui/button';
 import FloatingShapes from './FloatingShapes';
+import ThreeScene from './ThreeScene';
 
 const Hero = () => {
   return (
     <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center relative overflow-hidden">
+      <ThreeScene />
       <FloatingShapes />
       <div className="container mx-auto px-4 text-center z-10">
         <h1 className="text-5xl md:text-7xl font-bold mb-6 font-heading bg-gradient-to-r from-accent-teal via-accent-purple to-accent-green text-transparent bg-clip-text animate-fade-in">

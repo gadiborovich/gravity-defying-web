@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -21,19 +21,16 @@ const FloatingObject: React.FC<FloatingObjectProps> = ({ position, color, scale,
     meshRef.current.rotation.y = time * 0.2;
   });
 
-  useEffect(() => {
-    if (materialRef.current) {
-      materialRef.current.color = new THREE.Color(color);
-    }
-  }, [color]);
-
   return (
     <mesh ref={meshRef} position={position} scale={[scale, scale, scale]}>
       <torusKnotGeometry args={[1, 0.3, 128, 16]} />
       <meshStandardMaterial
         ref={materialRef}
+        color={color}
         roughness={0.3}
         metalness={0.8}
+        emissive={color}
+        emissiveIntensity={0.5}
       />
     </mesh>
   );
@@ -46,19 +43,19 @@ const Scene: React.FC = () => {
       <pointLight position={[10, 10, 10]} intensity={1} />
       <FloatingObject 
         position={[-4, 0, 0]} 
-        color="#00F6FF" 
+        color="#00ffff" 
         scale={0.8} 
         speed={1.2} 
       />
       <FloatingObject 
         position={[4, 2, -2]} 
-        color="#FF3366" 
+        color="#BD00FF" 
         scale={0.6} 
         speed={0.8} 
       />
       <FloatingObject 
         position={[0, -2, 1]} 
-        color="#FFFFFF" 
+        color="#00FF85" 
         scale={0.7} 
         speed={1} 
       />
