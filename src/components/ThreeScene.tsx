@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -10,8 +10,7 @@ interface FloatingObjectProps {
 }
 
 const FloatingObject: React.FC<FloatingObjectProps> = ({ position, color, scale, speed = 1 }) => {
-  const meshRef = useRef<THREE.Mesh>(null!);
-  const materialRef = useRef<THREE.MeshStandardMaterial>(null!);
+  const meshRef = React.useRef<THREE.Mesh>(null!);
 
   useFrame((state) => {
     if (!meshRef.current) return;
@@ -25,7 +24,6 @@ const FloatingObject: React.FC<FloatingObjectProps> = ({ position, color, scale,
     <mesh ref={meshRef} position={position} scale={[scale, scale, scale]}>
       <torusKnotGeometry args={[1, 0.3, 128, 16]} />
       <meshStandardMaterial
-        ref={materialRef}
         color={color}
         roughness={0.3}
         metalness={0.8}
