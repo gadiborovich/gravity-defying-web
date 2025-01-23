@@ -7,10 +7,15 @@ const ThreeScene: React.FC = () => {
     <div className="absolute inset-0 z-0">
       <Canvas
         onCreated={({ gl }) => {
-          console.log('WebGL Context:', gl);
-          console.log('WebGL Version:', gl.getParameter(gl.VERSION));
-          console.log('WebGL Vendor:', gl.getParameter(gl.VENDOR));
-          console.log('WebGL Renderer:', gl.getParameter(gl.RENDERER));
+          const context = gl.domElement.getContext('webgl2') || gl.domElement.getContext('webgl');
+          if (context) {
+            console.log('WebGL Context:', context);
+            console.log('WebGL Version:', context.getParameter(context.VERSION));
+            console.log('WebGL Vendor:', context.getParameter(context.VENDOR));
+            console.log('WebGL Renderer:', context.getParameter(context.RENDERER));
+          } else {
+            console.warn('WebGL context not available');
+          }
         }}
       >
         <ambientLight intensity={0.5} />
