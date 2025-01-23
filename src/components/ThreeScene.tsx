@@ -21,13 +21,13 @@ const FloatingObject: React.FC<FloatingObjectProps> = ({ position, color, scale,
   });
 
   return (
-    <mesh ref={meshRef} position={position} scale={[scale, scale, scale]}>
+    <mesh ref={meshRef} position={position} scale={scale}>
       <torusKnotGeometry args={[1, 0.3, 128, 16]} />
       <meshStandardMaterial
-        color={color}
+        color={new THREE.Color(color)}
         roughness={0.3}
         metalness={0.8}
-        emissive={color}
+        emissive={new THREE.Color(color)}
         emissiveIntensity={0.5}
       />
     </mesh>
@@ -73,7 +73,8 @@ const ThreeScene: React.FC = () => {
         }}
         gl={{ 
           antialias: true,
-          alpha: true
+          alpha: true,
+          powerPreference: "high-performance"
         }}
       >
         <Scene />
