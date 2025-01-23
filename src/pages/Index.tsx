@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Hero from '../components/Hero';
 
 const Index = () => {
   return (
     <div className="pt-20">
-      <Hero />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Hero />
+      </Suspense>
     </div>
   );
 };
