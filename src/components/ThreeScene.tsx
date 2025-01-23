@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Sphere, Box, TorusKnot } from '@react-three/drei';
+import { TorusKnot } from '@react-three/drei';
 import * as THREE from 'three';
 
 const FloatingObject = ({ position, color, scale, speed = 1 }: any) => {
@@ -16,9 +16,12 @@ const FloatingObject = ({ position, color, scale, speed = 1 }: any) => {
 
   return (
     <mesh ref={meshRef} position={position} scale={scale}>
-      <TorusKnot args={[1, 0.3, 128, 16]}>
-        <meshStandardMaterial color={color} roughness={0.3} metalness={0.8} />
-      </TorusKnot>
+      <torusKnotGeometry args={[1, 0.3, 128, 16]} />
+      <meshStandardMaterial 
+        color={color} 
+        roughness={0.3} 
+        metalness={0.8} 
+      />
     </mesh>
   );
 };
