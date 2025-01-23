@@ -1,5 +1,5 @@
 import React from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
 
 interface FloatingObjectProps {
@@ -10,24 +10,42 @@ interface FloatingObjectProps {
 }
 
 const FloatingObject: React.FC<FloatingObjectProps> = ({ position, color, scale, speed = 1 }) => {
-  const meshRef = React.useRef<THREE.Mesh>(null!);
+  const meshRef = React.useRef<THREE.Mesh>(null);
+  const [time, setTime] = React.useState(0);
 
-  useFrame((state) => {
-    if (!meshRef.current) return;
-    const time = state.clock.getElapsedTime();
-    meshRef.current.position.y = position[1] + Math.sin(time * speed) * 0.5;
-    meshRef.current.rotation.x = time * 0.5;
-    meshRef.current.rotation.y = time * 0.2;
-  });
+  React.useEffect(() => {
+    let animationFrameId: number;
+    
+    const animate = () => {
+      setTime(prev => prev + 0.01);
+      animationFrameId = requestAnimationFrame(animate);
+    };
+    
+    animate();
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, []);
+
+  const yPosition = position[1] + Math.sin(time * speed) * 0.5;
+  const xRotation = time * 0.5;
+  const yRotation = time * 0.2;
 
   return (
-    <mesh ref={meshRef} position={position} scale={scale}>
+    <mesh 
+      ref={meshRef} 
+      position={[position[0], yPosition, position[2]]} 
+      rotation={[xRotation, yRotation, 0]}
+      scale={scale}
+    >
       <torusKnotGeometry args={[1, 0.3, 128, 16]} />
       <meshStandardMaterial
-        color={new THREE.Color(color)}
+        color={color}
         roughness={0.3}
         metalness={0.8}
-        emissive={new THREE.Color(color)}
+        emissive={color}
         emissiveIntensity={0.5}
       />
     </mesh>
