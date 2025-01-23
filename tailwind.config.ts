@@ -20,17 +20,18 @@ export default {
     extend: {
       colors: {
         space: {
-          dark: "#0A0F1C",
+          dark: "#0D0D0D",
           light: "#1A1B26",
         },
         accent: {
-          cyan: "#00F6FF",
-          magenta: "#FF3366",
+          teal: "#00ffff",
+          purple: "#BD00FF",
+          green: "#00FF85",
         },
       },
       fontFamily: {
-        heading: ["Space Grotesk", "sans-serif"],
-        body: ["Inter", "sans-serif"],
+        heading: ["Orbitron", "sans-serif"],
+        body: ["Montserrat", "sans-serif"],
       },
       keyframes: {
         float: {
