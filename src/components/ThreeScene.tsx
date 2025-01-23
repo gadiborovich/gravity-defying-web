@@ -2,11 +2,17 @@ import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
-const FloatingObject = ({ position, color, scale, speed = 1 }: any) => {
-  const meshRef = useRef<THREE.Mesh>(null);
+interface FloatingObjectProps {
+  position: [number, number, number];
+  color: string;
+  scale: number;
+  speed?: number;
+}
+
+const FloatingObject: React.FC<FloatingObjectProps> = ({ position, color, scale, speed = 1 }) => {
+  const meshRef = useRef<THREE.Mesh>(null!);
 
   useFrame((state) => {
-    if (!meshRef.current) return;
     const time = state.clock.getElapsedTime();
     meshRef.current.position.y = position[1] + Math.sin(time * speed) * 0.5;
     meshRef.current.rotation.x = time * 0.5;
@@ -14,7 +20,7 @@ const FloatingObject = ({ position, color, scale, speed = 1 }: any) => {
   });
 
   return (
-    <mesh ref={meshRef} position={position} scale={scale}>
+    <mesh ref={meshRef} position={position} scale={[scale, scale, scale]}>
       <torusKnotGeometry args={[1, 0.3, 128, 16]} />
       <meshStandardMaterial 
         color={color}
@@ -25,10 +31,10 @@ const FloatingObject = ({ position, color, scale, speed = 1 }: any) => {
   );
 };
 
-const ThreeScene = () => {
+const ThreeScene: React.FC = () => {
   return (
-    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
-      <Canvas camera={{ position: [0, 0, 15] }}>
+    <div className="absolute inset-0 z-0">
+      <Canvas camera={{ position: [0, 0, 15], fov: 75 }}>
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={1} />
         <FloatingObject 
